@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" datadismiss="modal" aria-hidden="true">&times;</button>
+    <h1>Add a Survey</h1>
+</div>
+<div class="modal-body">
+    <label>Survey Title</label>
+    <input type="text" ng-model="currentSurvey.title" />
+
+
+
+    <div ng-repeat="question in currentSurvey.questions">
+        <label>Question {{question.no}}</label>
+        <input type="text" ng-model="question.title">
+        <div ng-repeat="answer in question.answers">
+            <input type="text" ng-model="answer.text" />
+            <i class="fa fa-plus" ng-click="addAnswerAfter(question,answer)"></i> 
+            <i class="fa fa-times" ng-click="removeThisAnswer(question,answer)"></i> 
+            <div class="btn-upload" upload-button url="/upload" accept="image/*" on-success="onSuccess(response)" multiple="true">
+                <button class="btn btn-primary">Fileupload</button>
+            </div>
+        </div>
+        <input type="checkbox" ng-model="question.isMultipleAnswer" />More than one answer
+        <input type="checkbox" ng-model="question.isDisplayImage" />Display image
+
+    </div>
+
+    <button type="button" class="btn btn-success" ng-click="addNewQuestion()">Add New Question</button>
+
+
+
+
+</div>

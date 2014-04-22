@@ -7,6 +7,8 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+
+
 module.exports = function(grunt) {
 
     // Load grunt tasks automatically
@@ -15,6 +17,22 @@ module.exports = function(grunt) {
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
 
+
+
+
+    var restSupport = require('connect-rest');
+    restSupport.post({
+        path: '/uploadimage'
+    }, function(req, content, next) {
+        next(null, {
+            result: 'OK'
+        });
+    });
+
+
+    var mountFolder = function(connect, dir) {
+        return connect.static(require('path').resolve(dir));
+    };
     // Define the configuration for all the tasks
     grunt.initConfig({
 
@@ -51,7 +69,8 @@ module.exports = function(grunt) {
             },
             livereload: {
                 options: {
-                    livereload: '<%= connect.options.livereload %>'
+                    livereload: '<%= connect.options.livereload %>',
+
                 },
                 files: [
                     '<%= yeoman.app %>/{,*/}*.html',
@@ -80,7 +99,16 @@ module.exports = function(grunt) {
                     base: [
                         '.tmp',
                         '<%= yeoman.app %>'
-                    ]
+                    ],
+                    middleware: function(connect, options) {
+                        return [
+                            mountFolder(connect, '.tmp'),
+                            mountFolder(connect, 'app'),
+                            restSupport.rester({
+                                'context': '/api'
+                            })
+                        ];
+                    }
                 }
             },
             test: {
@@ -291,7 +319,7 @@ module.exports = function(grunt) {
             styles: {
                 expand: true,
                 cwd: '.tmp/styles/',
-                dest: '<%= yeoman.app %>/styles',                
+                dest: '<%= yeoman.app %>/styles',
                 src: '{,*/}*.css'
             }
         },

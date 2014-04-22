@@ -8,32 +8,42 @@
 
 
 
-    <div ng-repeat="question in currentSurvey.questions">
-        <label>Question {{question.no}}</label>
-        <input type="text" ng-model="question.title">
-        <div ng-repeat="answer in question.answers">
-            <input type="text" ng-model="answer.text" />
-            <i class="fa fa-plus" ng-click="addAnswerAfter(question,answer)"></i> 
-            <i class="fa fa-times" ng-click="removeThisAnswer(question,answer)"></i> 
-            <div data-file-upload="options">
-                <!-- The fileinput-button span is used to style the file input field as button -->
-                <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    <span>Add files...</span>
-                    <input type="file" name="files[]" ng-disabled="disabled">
-                </span>
-                <div class="preview" data-file-upload-preview="queue[0]"></div>
+
+    <div ui-sortable ng-model="currentSurvey.questions">
+        <div ng-repeat="question in currentSurvey.questions" class="sortable">
+            <label>Question {{question.no}}</label>
+            <input type="text" ng-model="question.title">
+            <div ui-sortable ng-model="question.answers">
+                <div ng-repeat="answer in question.answers">
+                    <input type="text" ng-model="answer.text" />
+                    <i class="fa fa-plus" ng-click="addAnswerAfter(question,answer)"></i> 
+                    <i class="fa fa-times" ng-click="removeThisAnswer(question,answer)"></i> 
+                    <div data-file-upload="options">
+                        <!-- The fileinput-button span is used to style the file input field as button -->
+                        <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span>Add file...</span>
+                            <input type="file" name="files[]" ng-disabled="disabled">
+                        </span>
+                        <div class="preview" data-file-upload-preview="queue[0]" ng-if="!answer.imgname"></div>
+                        <div ng-if="!!answer.imgname">
+                            <img ng-src="{{'images/'+answer.imgname}}" />
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
             <input type="checkbox" ng-model="question.isMultipleAnswer" />More than one answer
             <input type="checkbox" ng-model="question.isDisplayImage" />Display image
-
         </div>
 
-
-        <button type="button" class="btn btn-success" ng-click="addNewQuestion()">Add New Question</button>
-        <button type="button" class="btn btn-success" ng-click="save()">Save</button>
-
-
-
-
     </div>
+
+    <button type="button" class="btn btn-success" ng-click="addNewQuestion()">Add New Question</button>
+    <button type="button" class="btn btn-success" ng-click="save()">Save</button>
+
+
+
+
+</div>

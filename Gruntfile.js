@@ -25,7 +25,12 @@ module.exports = function(grunt) {
         path: '/uploadimage'
     }, function(req, content, next) {
         next(null, {
-            result: 'OK'
+
+            status: "success",
+
+            imgname: 'imgid.png'
+
+
         });
     });
 
@@ -104,9 +109,7 @@ module.exports = function(grunt) {
                         return [
                             mountFolder(connect, '.tmp'),
                             mountFolder(connect, 'app'),
-                            restSupport.rester({
-                                'context': '/api'
-                            })
+                            restSupport.rester()
                         ];
                     }
                 }
@@ -180,7 +183,13 @@ module.exports = function(grunt) {
         bowerInstall: {
             app: {
                 src: ['<%= yeoman.app %>/index.html'],
-                ignorePath: '<%= yeoman.app %>/'
+                ignorePath: '<%= yeoman.app %>/',
+                exclude: [/noscript/,
+                    /fileupload-ui/,
+                    /fileupload-jquery-ui/
+                ]
+
+
             }
         },
 

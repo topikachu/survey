@@ -36,30 +36,32 @@ controller('AddNewSurvey', function($scope, $modalInstance, $http, currentSurvey
 
     };
 
-    $scope.helloWorld = function() {
-        alert("hello");
-    };
 
-    $scope.onSuccess = function(response) {
-        console.log(response.data);
-    };
+
+
 
 
 
     $scope.options = {
-        url: '/api/uploadimage',
-        maxNumberOfFiles: 1
+        url: '/uploadimage',
+        maxNumberOfFiles: 1,
+        prependFiles: true
 
     };
 
     $scope.$on('fileuploadadd', function(event, data) {
-        data.scope.$parent.answer.data = data
+        console.log(data.files.length);
+        data.scope.$parent.answer.data = data;
+        data.scope.$parent.answer.imgname = null;
     });
 
     $scope.$on('fileuploaddone', function(event, data) {
-        data.scope.$parent.answer.data = data
+        data.scope.$parent.answer.data = data;
+        data.scope.$parent.answer.imgname = data.result.imgname;
     });
 
+
+    $scope.items=[1,2,3];
 
     $scope.save = function() {
         $scope.currentSurvey.questions.forEach(

@@ -8,7 +8,8 @@ angular
         'ngRoute',
         'ui.bootstrap',
         'ngGrid',
-        'blueimp.fileupload'
+        'blueimp.fileupload',
+        'ui.sortable'
         
     ])
     .config(function($routeProvider) {

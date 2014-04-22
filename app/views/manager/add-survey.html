@@ -18,18 +18,18 @@
                     <input type="text" ng-model="answer.text" />
                     <i class="fa fa-plus" ng-click="addAnswerAfter(question,answer)"></i> 
                     <i class="fa fa-times" ng-click="removeThisAnswer(question,answer)"></i> 
-                    <div data-file-upload="options">
+                    <span data-file-upload="options">
                         <!-- The fileinput-button span is used to style the file input field as button -->
                         <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
                             <i class="glyphicon glyphicon-plus"></i>
                             <span>Add file...</span>
                             <input type="file" name="files[]" ng-disabled="disabled">
                         </span>
-                        <div class="preview" data-file-upload-preview="queue[0]" ng-if="!answer.imgname"></div>
-                        <div ng-if="!!answer.imgname">
+                        <span class="preview" data-file-upload-preview="queue[0]" ng-if="!answer.imgname"></div>
+                        <span ng-if="!!answer.imgname">
                             <img ng-src="{{'images/'+answer.imgname}}" />
-                        </div>
-                    </div>
+                        </span>
+                    </span>
 
 
                 </div>

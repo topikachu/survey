@@ -104,7 +104,8 @@ angular.module('surveyApp')
             })
         }
     })
-    .controller('AddNewSurvey', function($scope, $modalInstance, currentSurvey) {
+    .controller('AddNewSurvey', function($scope, $modalInstance, $http, currentSurvey) {
+
         $scope.currentSurvey = currentSurvey;
         $scope.cancel = function() {
             $modalInstance.dismiss('cancel');
@@ -123,27 +124,57 @@ angular.module('surveyApp')
         };
 
 
-        $scope.addAnswerAfter = function(question,answer){
-        	var newAnswer = {
-        		text: "new answer"
-        	};
-        	var index = question.answers.indexOf(answer);
-        	question.answers.splice(index+1,0,newAnswer);
+        $scope.addAnswerAfter = function(question, answer) {
+            var newAnswer = {
+                text: "new answer"
+            };
+            var index = question.answers.indexOf(answer);
+            question.answers.splice(index + 1, 0, newAnswer);
         };
 
-        $scope.removeThisAnswer=function(question,answer){
-        	var index = question.answers.indexOf(answer);
-        	if (index>-1){
-        		question.answers.splice(index,1);
-        	}
-        	
+        $scope.removeThisAnswer = function(question, answer) {
+            var index = question.answers.indexOf(answer);
+            if (index > -1) {
+                question.answers.splice(index, 1);
+            }
+
         };
 
-        $scope.helloWorld=function(){
-        	alert("hello");
+        $scope.helloWorld = function() {
+            alert("hello");
         };
 
-        $scope.onSuccess=function  (response ) {
-        	console.log(response.data);
+        $scope.onSuccess = function(response) {
+            console.log(response.data);
         };
+
+        
+        var url='/uploading'
+
+
+        $scope.options = {
+            url: url,
+            maxNumberOfFiles: 1
+           
+        };
+
+        $scope.$on('fileuploadadd', function(event, data){             
+            data.scope.$parent.answer.data=data
+        });
+
+        $scope.save=function(){
+            alert($scope.currentSurvey.title);
+        }
+
+        $scope.loadingFiles = true;
+        $http.get(url)
+            .then(
+                function(response) {
+                    $scope.loadingFiles = false;
+                    $scope.queue = response.data.files || [];
+                },
+                function() {
+                    $scope.loadingFiles = false;
+                }
+        );
     });

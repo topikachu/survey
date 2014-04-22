@@ -15,18 +15,25 @@
             <input type="text" ng-model="answer.text" />
             <i class="fa fa-plus" ng-click="addAnswerAfter(question,answer)"></i> 
             <i class="fa fa-times" ng-click="removeThisAnswer(question,answer)"></i> 
-            <div class="btn-upload" upload-button url="/upload" accept="image/*" on-success="onSuccess(response)" multiple="true">
-                <button class="btn btn-primary">Fileupload</button>
+            <div data-file-upload="options">
+                <!-- The fileinput-button span is used to style the file input field as button -->
+                <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>Add files...</span>
+                    <input type="file" name="files[]" ng-disabled="disabled">
+                </span>
+                <div class="preview" data-file-upload-preview="queue[0]"></div>
             </div>
+            <input type="checkbox" ng-model="question.isMultipleAnswer" />More than one answer
+            <input type="checkbox" ng-model="question.isDisplayImage" />Display image
+
         </div>
-        <input type="checkbox" ng-model="question.isMultipleAnswer" />More than one answer
-        <input type="checkbox" ng-model="question.isDisplayImage" />Display image
+
+
+        <button type="button" class="btn btn-success" ng-click="addNewQuestion()">Add New Question</button>
+        <button type="button" class="btn btn-success" ng-click="save()">Save</button>
+
+
+
 
     </div>
-
-    <button type="button" class="btn btn-success" ng-click="addNewQuestion()">Add New Question</button>
-
-
-
-
-</div>

@@ -1,6 +1,6 @@
 'use strict';
 angular.module('surveyApp').
-controller('AddNewSurvey', function($scope, $modalInstance, $http, currentSurvey) {
+controller('AddNewSurvey', function($scope, $modalInstance, currentSurvey, isNew, suerveyList) {
 
     $scope.currentSurvey = currentSurvey;
     $scope.cancel = function() {
@@ -16,7 +16,7 @@ controller('AddNewSurvey', function($scope, $modalInstance, $http, currentSurvey
             }]
         };
 
-        $scope.currentSurvey.questions.push(newQuestion);
+        currentSurvey.questions.push(newQuestion);
     };
 
 
@@ -45,35 +45,67 @@ controller('AddNewSurvey', function($scope, $modalInstance, $http, currentSurvey
     $scope.options = {
         url: '/uploadimage',
         maxNumberOfFiles: 1,
-        prependFiles: true
+        prependFiles: true,
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
 
     };
 
     $scope.$on('fileuploadadd', function(event, data) {
+        if ( !! data.scope.$parent.answer.data) {
+            data.scope.$parent.answer.data.files.forEach(
+                function(f) {
+                    f.$cancel()
+                }
+            )
+        };
+        //data.scope.$parent.answer.data = data;
+
+    });
+
+    $scope.$on('fileuploadprocessdone', function(event, data) {
         console.log(data.files.length);
         data.scope.$parent.answer.data = data;
-        data.scope.$parent.answer.imgname = null;
+
+    });
+
+
+    $scope.$on('fileuploadprocessdone', function(event, data) {
+        console.log(data.files.length);
+        data.scope.$parent.answer.data = data;
+
     });
 
     $scope.$on('fileuploaddone', function(event, data) {
-        data.scope.$parent.answer.data = data;
+        data.scope.$parent.answer.data = null;
         data.scope.$parent.answer.imgname = data.result.imgname;
     });
 
 
-    $scope.items=[1,2,3];
 
     $scope.save = function() {
-        $scope.currentSurvey.questions.forEach(
+        var submitPromiseArray = []
+        currentSurvey.questions.forEach(
             function(question) {
                 question.answers.forEach(
                     function(answer) {
                         if (answer.data) {
-                            answer.data.submit();
+                            submitPromiseArray.push(answer.data.submit());
                         }
                     }
                 )
             });
+
+
+        $.when($, submitPromiseArray).then(function() {
+            if (isNew) {
+                suerveyList.push($scope.currentSurvey);
+            }
+            $modalInstance.close()
+
+
+        });
+
+
     }
 
 

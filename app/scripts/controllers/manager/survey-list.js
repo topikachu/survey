@@ -9,7 +9,7 @@ angular.module('surveyApp')
             isDisplayImage: false,
             questions: [{
                 no: 1,
-                question: "question 1",
+                title: "question 1",
 
                 answers: [{
                     no: 1,
@@ -20,7 +20,7 @@ angular.module('surveyApp')
                 }]
             }, {
                 no: 1,
-                question: "question 2",
+                title: "question 2",
                 isMultipleAnswer: false,
                 isDisplayImage: false,
                 answers: [{
@@ -36,7 +36,7 @@ angular.module('surveyApp')
             title: "suerver2",
             questions: [{
                 no: 1,
-                question: "question 1",
+                title: "question 1",
                 isMultipleAnswer: false,
                 isDisplayImage: false,
                 answers: [{
@@ -48,7 +48,7 @@ angular.module('surveyApp')
                 }]
             }, {
                 no: 2,
-                question: "question 2",
+                title: "question 2",
                 isMultipleAnswer: false,
                 isDisplayImage: false,
                 answers: [{
@@ -63,10 +63,46 @@ angular.module('surveyApp')
 
 
 
+        $scope.showModal = function(currentSurvey) {
+            var isNew = false;
+            if (!!currentSurvey) {
+                $scope.currentSurvey = currentSurvey;                
+            } else {
+                isNew = true;
+                $scope.currentSurvey = {
+                    title: "new suerver",
+                    questions: [{
+                        title: "question",
+                        answers: [{
+                            text: "answer 1"
+                        }, {
+                            text: "answer 2"
+                        }]
+                    }]
+                };
+                
+            }
+            var modalInstance = $modal.open({
+                templateUrl: 'views/manager/add-survey.html',
+                controller: 'AddNewSurvey',
+                resolve: {
+                    currentSurvey: function() {
+                        return $scope.currentSurvey;
+                    },
+                    isNew: function() {
+                        return isNew;
+                    },
+                    suerveyList: function(){
+                        return $scope.suerveyList;
+                    }
+
+                }
+
+            })
+        }
 
 
-
-
+        $scope.selectedSurvey = [];
 
         $scope.gridOptions = {
             data: 'suerveyList',
@@ -76,32 +112,13 @@ angular.module('surveyApp')
             }, {
                 field: 'title',
                 displayName: 'Title'
-            }]
+            }],
+            multiSelect: false,
+            selectedItems: $scope.selectedSurvey,
+            dblClickFn: $scope.showModal,
+            plugins: [ngGridDoubleClick]
         };
 
 
-        $scope.showModal = function() {
-            $scope.currentSurvey = {
-                title: "new suerver",
-                questions: [{
-                    title: "question",
-                    answers: [{
-                        text: "answer 1"
-                    }, {
-                        text: "answer 2"
-                    }]
-                }]
-            };
-            var modalInstance = $modal.open({
-                templateUrl: 'views/manager/add-survey.html',
-                controller: 'AddNewSurvey',
-                resolve: {
-                    currentSurvey: function() {
-                        return $scope.currentSurvey;
-                    }
-                }
 
-            })
-        }
-    })
-    ;
+    });

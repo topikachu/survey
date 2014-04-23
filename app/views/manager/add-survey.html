@@ -11,10 +11,10 @@
 
     <div ui-sortable ng-model="currentSurvey.questions">
         <div ng-repeat="question in currentSurvey.questions" class="sortable">
-            <label>Question {{question.no}}</label>
+            <label>Question</label>
             <input type="text" ng-model="question.title">
             <div ui-sortable ng-model="question.answers">
-                <div ng-repeat="answer in question.answers">
+                <div ng-repeat="answer in question.answers">                    
                     <input type="text" ng-model="answer.text" />
                     <i class="fa fa-plus" ng-click="addAnswerAfter(question,answer)"></i> 
                     <i class="fa fa-times" ng-click="removeThisAnswer(question,answer)"></i> 
@@ -22,18 +22,17 @@
                         <!-- The fileinput-button span is used to style the file input field as button -->
                         <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
                             <i class="glyphicon glyphicon-plus"></i>
-                            <span>Add file...</span>
+                            <span>Add Image...</span>
                             <input type="file" name="files[]" ng-disabled="disabled">
                         </span>
-                        <span class="preview" data-file-upload-preview="queue[0]" ng-if="!answer.imgname"></div>
-                        <span ng-if="!!answer.imgname">
-                            <img ng-src="{{'images/'+answer.imgname}}" />
+                        <span class="preview" data-file-upload-preview="answer.data.files[0]" ng-if="!!answer.data.files[0]">
                         </span>
+                        <img ng-src="{{'images/'+answer.imgname}}" ng-if="!answer.data.files[0]&&!!answer.imgname"/>
+
                     </span>
-
-
                 </div>
             </div>
+
             <input type="checkbox" ng-model="question.isMultipleAnswer" />More than one answer
             <input type="checkbox" ng-model="question.isDisplayImage" />Display image
         </div>

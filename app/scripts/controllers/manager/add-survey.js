@@ -51,33 +51,33 @@ controller('AddNewSurvey', function($scope, $modalInstance,$modal, currentSurvey
     };
 
     $scope.$on('fileuploadadd', function(event, data) {
-        if ( !! data.scope.$parent.answer.data) {
-            data.scope.$parent.answer.data.files.forEach(
+        if ( !! data.scope.answer.data) {
+            data.scope.answer.data.files.forEach(
                 function(f) {
                     f.$cancel()
                 }
             )
         };
-        //data.scope.$parent.answer.data = data;
+        
 
     });
 
     $scope.$on('fileuploadprocessdone', function(event, data) {
         console.log(data.files.length);
-        data.scope.$parent.answer.data = data;
+        data.scope.answer.data = data;
 
     });
 
 
     $scope.$on('fileuploadprocessdone', function(event, data) {
         console.log(data.files.length);
-        data.scope.$parent.answer.data = data;
+        data.scope.answer.data = data;
 
     });
 
     $scope.$on('fileuploaddone', function(event, data) {
-        data.scope.$parent.answer.data = null;
-        data.scope.$parent.answer.imgname = data.result.imgname;
+        data.scope.answer.data = null;
+        data.scope.answer.imgname = data.result.imgname;
     });
 
 

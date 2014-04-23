@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('surveyApp')
-    .controller('ResponseCtrl', function($scope, $routeParams,WizardHandler, surveyProvier) {
+    .controller('PreviewCtrl', function($scope,$modalInstance, currentSurvey, surveyProvier) {
         $scope.data ={};
         $scope.data.currentStep='-';
         $scope.surveyProvier = surveyProvier;
-        var surveyId = $scope.surveyId = $routeParams.surveyId;
-        var currentSurvey = $scope.currentSurvey = surveyProvier.getSurveyById(surveyId);
+        
+        $scope.currentSurvey = currentSurvey;
         var response = $scope.response = [];
         currentSurvey.questions.forEach(function(question) {
             if (question.isMultipleAnswer) {
@@ -18,7 +18,7 @@ angular.module('surveyApp')
 
         $scope.isFirstStep = function() {
             console.log($scope.data.currentStep);
-            var wizard=WizardHandler.wizard()
+
             var index = _.indexOf(_.map($scope.currentSurvey.questions, function(question) {
                 return question.title;
             }), $scope.data.currentStep);
@@ -36,6 +36,6 @@ angular.module('surveyApp')
         }
 
         $scope.finish = function() {
-
+ 			$modalInstance.close();
         }
     });

@@ -23,7 +23,7 @@ angular
                 templateUrl: 'views/manager/survey-list.html',
                 controller: 'ManagerSurveyListCtrl'
             })
-            .when('/response/:surveyId/:questionId?', {
+            .when('/response/:surveyId', {
                 templateUrl: 'views/response.html',
                 controller: 'ResponseCtrl'
             })

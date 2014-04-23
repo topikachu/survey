@@ -3,7 +3,7 @@
 angular.module('surveyApp')
     .controller('ManagerSurveyListCtrl', function($scope, $modal,surveyProvier) {
        
-        var suerveyList = $scope.suerveyList = surveyProvier.getSurveyList();
+        var surveyList = $scope.surveyList = surveyProvier.getSurveyList();
 
 
 
@@ -36,8 +36,8 @@ angular.module('surveyApp')
                     isNew: function() {
                         return isNew;
                     },
-                    suerveyList: function(){
-                        return $scope.suerveyList;
+                    surveyList: function(){
+                        return $scope.surveyList;
                     }
 
                 }
@@ -49,7 +49,7 @@ angular.module('surveyApp')
         $scope.selectedSurvey = [];
 
         $scope.gridOptions = {
-            data: 'suerveyList',
+            data: 'surveyList',
             columnDefs: [{
                 field: 'no',
                 displayName: 'No.'

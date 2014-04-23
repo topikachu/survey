@@ -1,8 +1,9 @@
 'use strict';
 angular.module('surveyApp').
-controller('AddNewSurvey', function($scope, $modalInstance, currentSurvey, isNew, suerveyList,surveyProvier) {
+controller('AddNewSurvey', function($scope, $modalInstance,$modal, currentSurvey, isNew, surveyList, surveyProvier) {
 
     $scope.currentSurvey = currentSurvey;
+    $scope.surveyProvier=surveyProvier;
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
@@ -35,7 +36,6 @@ controller('AddNewSurvey', function($scope, $modalInstance, currentSurvey, isNew
         }
 
     };
-
 
 
 
@@ -98,7 +98,7 @@ controller('AddNewSurvey', function($scope, $modalInstance, currentSurvey, isNew
 
         $.when($, submitPromiseArray).then(function() {
             if (isNew) {
-                suerveyList.push($scope.currentSurvey);
+                surveyList.push($scope.currentSurvey);
             }
             $modalInstance.close()
 
@@ -106,6 +106,21 @@ controller('AddNewSurvey', function($scope, $modalInstance, currentSurvey, isNew
         });
 
 
+    }
+
+    $scope.preview=function(){
+        var modalInstance = $modal.open({
+                templateUrl: 'views/response.html',
+                controller: 'PreviewCtrl',
+                resolve: {
+                    currentSurvey: function() {
+                        return $scope.currentSurvey;
+                    }
+                    
+
+                }
+
+            })
     }
 
 

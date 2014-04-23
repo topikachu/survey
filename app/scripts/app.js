@@ -9,8 +9,9 @@ angular
         'ui.bootstrap',
         'ngGrid',
         'blueimp.fileupload',
-        'ui.sortable'
-        
+        'ui.sortable',
+        'mgo-angular-wizard'
+
     ])
     .config(function($routeProvider) {
         $routeProvider
@@ -23,8 +24,8 @@ angular
                 controller: 'ManagerSurveyListCtrl'
             })
             .when('/response/:surveyId/:questionId?', {
-              templateUrl: 'views/response.html',
-              controller: 'ResponseCtrl'
+                templateUrl: 'views/response.html',
+                controller: 'ResponseCtrl'
             })
             .otherwise({
                 redirectTo: '/'

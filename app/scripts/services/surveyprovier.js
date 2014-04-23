@@ -8,6 +8,9 @@ angular.module('surveyApp')
 
         // Private constructor
         function SurveyBackend() {
+            this.getSurveyById = function(surveyId) {
+              return this.getSurveyList()[surveyId];
+            }
             this.getSurveyList = function() {
                 return [{
                     no: 1,
@@ -28,7 +31,7 @@ angular.module('surveyApp')
                     }, {
                         no: 1,
                         title: "question 2",
-                        isMultipleAnswer: false,
+                        isMultipleAnswer: true,
                         isDisplayImage: false,
                         answers: [{
                             no: 1,

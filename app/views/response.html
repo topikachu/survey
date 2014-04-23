@@ -1,1 +1,13 @@
-<p>This is the response view.</p>
+<wizard on-finish="finishedWizard()" hide-indicators="true" current-step="currentStep"> 
+    <wz-step title="{{question.title}}" ng-repeat="question in currentSurvey.questions" ng-init="questionIndex = $index">
+        <h1>{{question.title}}</h1>
+        <div ng-repeat="answer in question.answers" ng-init="answerIndex = $index">
+        	<input type="checkbox"  ng-model="response[questionIndex][answerIndex]" value="{{answerIndex}}" ng-if="!!question.isMultipleAnswer"/> 
+        	<input type="radio"  ng-model="response[questionIndex]" value="{{answerIndex}}" ng-if="!question.isMultipleAnswer"/>
+        	{{answer.text}}
+        </div>
+        <button type="button" class="btn btn-success" wz-previous ng-if="!isFirstStep()">previous </button>
+        <button type="button" class="btn btn-success" wz-next ng-if="!isLastStep()">next</button>
+    </wz-step>
+    
+</wizard>

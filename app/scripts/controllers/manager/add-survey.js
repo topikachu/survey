@@ -1,6 +1,6 @@
 'use strict';
 angular.module('surveyApp').
-controller('AddNewSurvey', function($scope, $modalInstance, currentSurvey, isNew, suerveyList) {
+controller('AddNewSurvey', function($scope, $modalInstance, currentSurvey, isNew, suerveyList,surveyProvier) {
 
     $scope.currentSurvey = currentSurvey;
     $scope.cancel = function() {

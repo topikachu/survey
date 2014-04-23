@@ -22,6 +22,10 @@ angular
                 templateUrl: 'views/manager/survey-list.html',
                 controller: 'ManagerSurveyListCtrl'
             })
+            .when('/response/:surveyId/:questionId?', {
+              templateUrl: 'views/response.html',
+              controller: 'ResponseCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });

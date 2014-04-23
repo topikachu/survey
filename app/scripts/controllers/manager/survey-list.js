@@ -1,65 +1,9 @@
 'use strict';
 
 angular.module('surveyApp')
-    .controller('ManagerSurveyListCtrl', function($scope, $modal) {
-        var suerveyList = $scope.suerveyList = [{
-            no: 1,
-            title: "suerver1",
-            isMultipleAnswer: false,
-            isDisplayImage: false,
-            questions: [{
-                no: 1,
-                title: "question 1",
-
-                answers: [{
-                    no: 1,
-                    text: "answer1-1"
-                }, {
-                    no: 2,
-                    text: "answer1-2"
-                }]
-            }, {
-                no: 1,
-                title: "question 2",
-                isMultipleAnswer: false,
-                isDisplayImage: false,
-                answers: [{
-                    no: 1,
-                    text: "answer1-1"
-                }, {
-                    no: 2,
-                    text: "answer1-2"
-                }]
-            }]
-        }, {
-            no: 2,
-            title: "suerver2",
-            questions: [{
-                no: 1,
-                title: "question 1",
-                isMultipleAnswer: false,
-                isDisplayImage: false,
-                answers: [{
-                    no: 1,
-                    text: "answer1-1"
-                }, {
-                    no: 2,
-                    text: "answer1-2"
-                }]
-            }, {
-                no: 2,
-                title: "question 2",
-                isMultipleAnswer: false,
-                isDisplayImage: false,
-                answers: [{
-                    no: 1,
-                    text: "answer1-1"
-                }, {
-                    no: 2,
-                    text: "answer1-2"
-                }]
-            }]
-        }];
+    .controller('ManagerSurveyListCtrl', function($scope, $modal,surveyProvier) {
+       
+        var suerveyList = $scope.suerveyList = surveyProvier.getSurveyList();
 
 
 

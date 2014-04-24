@@ -20,9 +20,10 @@
                     <i class="fa fa-times" ng-click="removeThisAnswer(question,answer)"></i> 
                     <span data-file-upload="options">
                         <!-- The fileinput-button span is used to style the file input field as button -->
-                        <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
-                            <i class="glyphicon glyphicon-plus"></i>
-                            <span>Add Image...</span>
+                        <span class="fa fa-upload fileinput-button" ng-class="{disabled: disabled}">
+                           
+                            
+                            
                             <input type="file" name="files[]" ng-disabled="disabled">
                         </span>
                         <span class="preview" data-file-upload-preview="answer.data.files[0]" ng-if="!!answer.data.files[0]">

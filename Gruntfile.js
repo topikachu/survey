@@ -316,7 +316,8 @@ module.exports = function(grunt) {
                         '*.html',
                         'views/{,*/}*.html',
                         'images/{,*/}*.{webp}',
-                        'fonts/*'
+                        'fonts/*',
+                        'bower_components/components-font-awesome/fonts/*'
                     ]
                 }, {
                     expand: true,

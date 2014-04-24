@@ -10,7 +10,7 @@ angular.module('surveyApp')
         function SurveyBackend() {
 
             this.getAnswerImageUrl = function(answer) {
-                return "http://lorempixel.com/200/100/sports/";
+                return "http://lorempixel.com/200/100/";
             }
 
             this.getSurveyById = function(surveyId) {

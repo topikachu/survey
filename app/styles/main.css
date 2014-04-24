@@ -78,9 +78,6 @@ body {
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
-.sortable {
-  cursor: move;
-}
 .gridStyle {
   border: 1px solid #d4d4d4;
   width: 400px;

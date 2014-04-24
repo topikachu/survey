@@ -14,11 +14,11 @@
             <label>Question</label>
             <input type="text" ng-model="question.title">
             <div ui-sortable ng-model="question.answers">
-                <div ng-repeat="answer in question.answers">
+                <div ng-repeat="answer in question.answers" ng-init="showImageRemove=false">
                     <input type="text" ng-model="answer.text" />
                     <i class="fa fa-plus" ng-click="addAnswerAfter(question,answer)"></i> 
                     <i class="fa fa-times" ng-click="removeThisAnswer(question,answer)"></i> 
-                    <span data-file-upload="options">
+                    <span data-file-upload="options" style="position:relative ;display:inline-block" >
                         <!-- The fileinput-button span is used to style the file input field as button -->
                         <span class="fa fa-upload fileinput-button" ng-class="{disabled: disabled}">
 
@@ -26,13 +26,13 @@
 
                             <input type="file" name="files[]" ng-disabled="disabled">
                         </span>
-                        <span ng-mouseover="showImageRemove=true" ng-mouseleave="showImageRemove=false" ng-init="showImageRemove=false">
-                            <span class="preview" data-file-upload-preview="answer.data.files[0]" ng-show="!!answer.data.files[0]">
-                            </span>
-                            <img ng-src="{{surveyProvier.getAnswerImageUrl(answer)}}" ng-show="!answer.data.files[0]&&!!answer.imgname" />
-                            <i class="fa fa-minus-circle" ng-show="showImageRemove" style="right:0px;top:0px" ng-click="removeImage(answer)"></i> 
+
+                        <span class="preview" data-file-upload-preview="answer.data.files[0]" ng-show="!!answer.data.files[0]" ng-mouseover="showImageRemove=true" ng-mouseleave="showImageRemove=false">
                         </span>
-                        
+                        <img ng-src="{{surveyProvier.getAnswerImageUrl(answer)}}" ng-show="!answer.data.files[0]&&!!answer.imgname" ng-mouseover="showImageRemove=true" ng-mouseleave="showImageRemove=false" />
+
+
+                        <i class="fa fa-minus-circle" ng-mouseover="showImageRemove=true" ng-show="showImageRemove && (!!answer.data.files[0]||!!answer.imgname)" style="top: 5px; right: 5px; position: absolute;color: red;    text-shadow: 1px 1px 1px #ccc;    font-size: 1.0em;" ng-click="removeImage(answer)"></i>
                     </span>
                 </div>
             </div>

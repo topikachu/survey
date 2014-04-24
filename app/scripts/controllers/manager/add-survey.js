@@ -88,7 +88,7 @@ controller('AddNewSurvey', function($scope, $modalInstance,$modal, currentSurvey
             function(question) {
                 question.answers.forEach(
                     function(answer) {
-                        if (answer.data) {
+                        if (!!answer.data) {
                             submitPromiseArray.push(answer.data.submit());
                         }
                     }
@@ -124,8 +124,15 @@ controller('AddNewSurvey', function($scope, $modalInstance,$modal, currentSurvey
     }
 
     $scope.removeImage=function(answer){
-        answer.imgname="";
-        answer.data="";
+        answer.imgname=null;
+        if ( !! answer.data) {
+            answer.data.files.forEach(
+                function(f) {
+                    f.$cancel()
+                }
+            )
+        };
+        answer.data=null;
     }
 
 

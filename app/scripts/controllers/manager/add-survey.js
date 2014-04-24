@@ -123,5 +123,10 @@ controller('AddNewSurvey', function($scope, $modalInstance,$modal, currentSurvey
             })
     }
 
+    $scope.removeImage=function(answer){
+        answer.imgname="";
+        answer.data="";
+    }
+
 
 })

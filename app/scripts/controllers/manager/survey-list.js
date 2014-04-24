@@ -60,7 +60,9 @@ angular.module('surveyApp')
             multiSelect: false,
             selectedItems: $scope.selectedSurvey,
             dblClickFn: $scope.showModal,
-            plugins: [ngGridDoubleClick]
+            clickFn:  $scope.showModal,
+            plugins: [ngGridClick]
+            //rowTemplate: '<div ng-click="showModal(row)" ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>'
         };
 
 

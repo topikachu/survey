@@ -29,6 +29,7 @@ angular.module('surveyApp')
             var modalInstance = $modal.open({
                 templateUrl: 'views/manager/add-survey.html',
                 controller: 'AddNewSurvey',
+                backdrop: false,
                 resolve: {
                     currentSurvey: function() {
                         return $scope.currentSurvey;

@@ -16,8 +16,8 @@
             <div ui-sortable ng-model="question.answers">
                 <div ng-repeat="answer in question.answers" ng-init="showImageRemove=false">
                     <input type="text" ng-model="answer.text" />
-                    <i class="fa fa-plus" ng-click="addAnswerAfter(question,answer)"></i> 
-                    <i class="fa fa-times" ng-click="removeThisAnswer(question,answer)"></i> 
+                    <i class="fa fa-plus" ng-click="addAnswerAfter(question,answer)" style="cursor:pointer"></i> 
+                    <i class="fa fa-times" ng-click="removeThisAnswer(question,answer)" style="cursor:pointer"></i> 
                     <span data-file-upload="options" >
                         <!-- The fileinput-button span is used to style the file input field as button -->
                         <span class="fa fa-upload fileinput-button" ng-class="{disabled: disabled}">
@@ -32,7 +32,7 @@
                         <img ng-src="{{surveyProvier.getAnswerImageUrl(answer)}}" ng-show="!answer.data.files[0]&&!!answer.imgname" ng-mouseover="showImageRemove=true" ng-mouseleave="showImageRemove=false" />
 
 
-                        <i class="fa fa-minus-circle" ng-mouseover="showImageRemove=true" ng-show="showImageRemove && (!!answer.data.files[0]||!!answer.imgname)" style="left: -20px; top: -40px; color: red; font-size: 1em; position: relative; text-shadow: 1px 1px 1px #ccc;" ng-click="removeImage(answer)"></i>
+                        <i class="fa fa-minus-circle" ng-mouseover="showImageRemove=true" ng-show="showImageRemove && (!!answer.data.files[0]||!!answer.imgname)" style="left: -20px; top: -40px; color: red; font-size: 1em; position: relative; text-shadow: 1px 1px 1px #ccc; cursor:pointer" ng-click="removeImage(answer)"></i>
                     </span>
                 </div>
             </div>

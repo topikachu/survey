@@ -1,52 +1,26 @@
+<div>
+    <div ng-repeat="question in currentSurvey.questions" ng-init="questionIndex = $index" ng-show="!!currentSurvey.isInSinglePage || questionIndex==data.currentStep">
 
-<wizard on-finish="finish()" hide-indicators="true" current-step="data.currentStep" ng-show="!currentSurvey.isInSinglePage" >
-    <wz-step title="{{question.title}}" ng-repeat="question in currentSurvey.questions" ng-init="questionIndex = $index">
+
         <h1>{{question.title}}</h1>
-        <div ng-if="!question.isDisplayImage">
-            <div ng-repeat="answer in question.answers" ng-init="answerIndex = $index">
-                <input type="checkbox" ng-model="response[questionIndex][answerIndex]" value="{{answerIndex}}" ng-if="!!question.isMultipleAnswer" />
-                <input type="radio" ng-model="response[questionIndex]" value="{{answerIndex}}" ng-if="!question.isMultipleAnswer" />{{answer.text}}
-            </div>
-        </div>
-        <div class="row" ng-if="!!question.isDisplayImage">
 
-            <div class="col-md-4" ng-repeat="answer in question.answers" ng-init="answerIndex = $index">
-                <img class="thumbnail" ng-src="{{surveyProvier.getAnswerImageUrl(answer)}}">
-                <input type="checkbox" ng-model="response[questionIndex][answerIndex]" value="{{answerIndex}}" ng-if="!!question.isMultipleAnswer" />
-                <input type="radio" ng-model="response[questionIndex]" value="{{answerIndex}}" ng-if="!question.isMultipleAnswer" />{{answer.text}}
-            </div>
-
-
-        </div>
         <div class="row">
-            <button type="button" class="btn btn-success" wz-previous ng-disabled="isFirstStep()">previous</button>
-            <button type="button" class="btn btn-success" wz-next>next</button>
-        </div>
-    </wz-step>
-
-</wizard>
-
-
-<div ng-show="!!currentSurvey.isInSinglePage">
-    <div ng-repeat="question in currentSurvey.questions" ng-init="questionIndex = $index">
-        <h1>{{question.title}}</h1>
-        <div ng-if="!question.isDisplayImage">
-            <div ng-repeat="answer in question.answers" ng-init="answerIndex = $index">
-                <input type="checkbox" ng-model="response[questionIndex][answerIndex]" value="{{answerIndex}}" ng-if="!!question.isMultipleAnswer" />
-                <input type="radio" ng-model="response[questionIndex]" value="{{answerIndex}}" ng-if="!question.isMultipleAnswer" />{{answer.text}}
+            <div ng-class="!!question.isDisplayImage?'col-md-4':'col-md-12'" ng-repeat="answer in question.answers" ng-init="answerIndex = $index">
+                <img class="thumbnail" ng-src="{{surveyProvier.getAnswerImageUrl(answer)}}" ng-show="!!question.isDisplayImage">
+                <input type="checkbox" ng-model="response[questionIndex][answerIndex]" value="{{answerIndex}}" ng-show="!!question.isMultipleAnswer" />
+                <input type="radio" ng-model="response[questionIndex]" value="{{answerIndex}}" ng-show="!question.isMultipleAnswer" />{{answer.text}}
             </div>
         </div>
-        <div class="row" ng-if="!!question.isDisplayImage">
 
-            <div class="col-md-4" ng-repeat="answer in question.answers" ng-init="answerIndex = $index">
-                <img class="thumbnail" ng-src="{{surveyProvier.getAnswerImageUrl(answer)}}">
-                <input type="checkbox" ng-model="response[questionIndex][answerIndex]" value="{{answerIndex}}" ng-if="!!question.isMultipleAnswer" />
-                <input type="radio" ng-model="response[questionIndex]" value="{{answerIndex}}" ng-if="!question.isMultipleAnswer" />{{answer.text}}
-            </div>
-
-
-        </div>
 
     </div>
-    <button type="button" class="btn btn-success" ng-click="finish()">finish</button>
+
+
+    <div class="row">
+
+
+        <button type="button" class="btn btn-success" ng-click="prev()" ng-disabled="data.currentStep==0" ng-show="!currentSurvey.isInSinglePage">prev</button>
+        <button type="button" class="btn btn-success" ng-click="next()" ng-disabled="data.currentStep==currentSurvey.questions.length-1" ng-show="!currentSurvey.isInSinglePage">next</button>
+        <button type="button" class="btn btn-success" ng-click="finish()">finish</button>
+    </div>
 </div>

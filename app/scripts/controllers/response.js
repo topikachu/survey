@@ -3,7 +3,7 @@
 angular.module('surveyApp')
     .controller('ResponseCtrl', function($scope, $routeParams,WizardHandler, surveyProvier) {
         $scope.data ={};
-        $scope.data.currentStep='-';
+        $scope.data.currentStep=0;
         $scope.surveyProvier = surveyProvier;
         var surveyId = $scope.surveyId = $routeParams.surveyId;
         var currentSurvey = $scope.currentSurvey = surveyProvier.getSurveyById(surveyId);
@@ -16,23 +16,13 @@ angular.module('surveyApp')
             }
         })
 
-        $scope.isFirstStep = function() {
-            console.log($scope.data.currentStep);
-            var wizard=WizardHandler.wizard()
-            var index = _.indexOf(_.map($scope.currentSurvey.questions, function(question) {
-                return question.title;
-            }), $scope.data.currentStep);
-            return index == 0;
+        $scope.next=function(){
+            
+            $scope.data.currentStep++;
         }
 
-
-        $scope.isLastStep = function() {
-            console.log($scope.data.currentStep);
-
-            var index = _.indexOf(_.map($scope.currentSurvey.questions, function(question) {
-                return question.title;
-            }), $scope.data.currentStep);
-            return index == $scope.currentSurvey.questions.length - 1;
+        $scope.prev=function(){
+            $scope.data.currentStep--;
         }
 
         $scope.finish = function() {
